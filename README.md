@@ -10,7 +10,7 @@ Features:
 - Shuffle the cards to break repetition.
 - Sort cards by difficulty so you can repeat the hard cards first.
 - Take photos of your handwritten notes with your camera and place them on a card.
-- Create cards automatically from your clipboard. Simply copy your notes (or a even a webpage), and FlipFlash will detect it when you create a new deck tocreate cards from it.
+- Create cards automatically from your clipboard. Simply copy your notes (or a even a webpage), and FlipFlash will detect it when you create a new deck.
 - Send cards to friends so they can learn from your decks.
 - App changes color based on the day you open it to keep things fresh.
 
