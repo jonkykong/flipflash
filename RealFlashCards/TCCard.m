@@ -7,8 +7,6 @@
 //
 
 #import "TCCard.h"
-#import <CommonCrypto/CommonDigest.h>
-#import <mach/mach.h>
 
 @interface TCCard ()
 @property (nonatomic, strong) NSMutableDictionary *data;
@@ -43,8 +41,8 @@ static const NSString *kTCCardData = @"data";
     self = [[[self class] alloc] init];
     if (self) {
         data = [coder decodeObjectForKey:(NSString *)kTCCardData];
-        UIImage *frontImage = [data objectForKey:kTCCardDataFrontImage];
-        UIImage *backImage = [data objectForKey:kTCCardDataBackImage];
+        UIImage *frontImage = data[kTCCardDataFrontImage];
+        UIImage *backImage = data[kTCCardDataBackImage];
         // create files for images
         if(frontImage) self.frontImage = frontImage;
         if(backImage) self.backImage = backImage;
@@ -59,8 +57,8 @@ static const NSString *kTCCardData = @"data";
     NSString *frontImagePath;
     NSString *backImagePath;
     if(sending) {
-        frontImagePath = [data objectForKey:kTCCardDataFrontImagePath];
-        backImagePath = [data objectForKey:kTCCardDataBackImagePath];
+        frontImagePath = data[kTCCardDataFrontImagePath];
+        backImagePath = data[kTCCardDataBackImagePath];
         [data setValue:self.frontImage forKey:(NSString *)kTCCardDataFrontImage];
         [data setValue:self.backImage forKey:(NSString *)kTCCardDataBackImage];
         [data setValue:nil forKey:(NSString *)kTCCardDataFrontImagePath];
@@ -106,7 +104,7 @@ static const NSString *kTCCardData = @"data";
 }
 
 - (void)setImage:(UIImage *)image forKey:(NSString *)key {
-    NSString *filePath = [data objectForKey:key];
+    NSString *filePath = data[key];
     
     // delete file if it exists from previous
     if(filePath) {
@@ -136,7 +134,7 @@ static const NSString *kTCCardData = @"data";
 }
 
 - (void)resetScores {
-    NSNumber *number = [NSNumber numberWithInteger:0];
+    NSNumber *number = @0;
     [data setValue:number forKey:(NSString *)kTCCardDataScoreRight];
     [data setValue:number forKey:(NSString *)kTCCardDataScoreWrong];
     [data setValue:@0 forKey:(NSString *)kTCCardDataScoreLatest];
@@ -149,23 +147,27 @@ static const NSString *kTCCardData = @"data";
 #pragma mark - Getters
 
 - (NSString *)frontText {
-    return [data objectForKey:kTCCardDataFrontText];
+    return data[kTCCardDataFrontText];
 }
 
 - (NSString *)backText {
-    return [data objectForKey:kTCCardDataBackText];
+    return data[kTCCardDataBackText];
 }
 
 - (UIImage *)frontImage {
-    NSString *uniquePath = [data objectForKey:kTCCardDataFrontImagePath];
-    if(!uniquePath) return nil;
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *uniquePath = data[kTCCardDataFrontImagePath];
+    if(!uniquePath) {
+        return nil;
+    }
+    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *filePath = [docPath stringByAppendingPathComponent:uniquePath];
     return [UIImage imageWithContentsOfFile:filePath];
 }
 
 - (void)frontImageWithCompletion:(void (^)(UIImage* image))completion {
-    if(!completion) return;
+    if(!completion) {
+        return;
+    }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         UIImage *image = self.frontImage;
         if(!image) dispatch_async(dispatch_get_main_queue(), ^{ completion(nil); });
@@ -174,9 +176,11 @@ static const NSString *kTCCardData = @"data";
 }
 
 - (UIImage *)backImage {
-    NSString *uniquePath = [data objectForKey:kTCCardDataBackImagePath];
-    if(!uniquePath) return nil;
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *uniquePath = data[kTCCardDataBackImagePath];
+    if(!uniquePath) {
+        return nil;
+    }
+    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *filePath = [docPath stringByAppendingPathComponent:uniquePath];
     return [UIImage imageWithContentsOfFile:filePath];
 }
@@ -191,12 +195,12 @@ static const NSString *kTCCardData = @"data";
 }
 
 - (NSUInteger)scoredRight {
-    NSNumber *number = [data objectForKey:kTCCardDataScoreRight];
+    NSNumber *number = data[kTCCardDataScoreRight];
     return number.integerValue;
 }
 
 - (NSUInteger)scoredWrong {
-    NSNumber *number = [data objectForKey:kTCCardDataScoreWrong];
+    NSNumber *number = data[kTCCardDataScoreWrong];
     return number.integerValue;
 }
 
@@ -209,7 +213,7 @@ static const NSString *kTCCardData = @"data";
 }
 
 - (NSInteger)scoredLatest {
-    NSNumber *number = [data objectForKey:kTCCardDataScoreLatest];
+    NSNumber *number = data[kTCCardDataScoreLatest];
     return number.integerValue;
 }
 
@@ -219,21 +223,17 @@ static const NSString *kTCCardData = @"data";
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     CGFloat scale = image.size.width / fminf(screenSize.width, screenSize.height);
     CGSize size = CGSizeMake(image.size.width / scale, image.size.height / scale);
-    image = [TCCard imageWithImage:image scaledToSize:size];
+    image = [image scaleImageToSize:size];
     NSString *filePath = [TCCard uniqueFilePath];
     NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
-    if(!imageData) return nil;
+    if(!imageData) {
+        return nil;
+    }
     NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    if(![imageData writeToFile:[docPath stringByAppendingPathComponent:filePath] atomically:YES]) return nil;
+    if(![imageData writeToFile:[docPath stringByAppendingPathComponent:filePath] atomically:YES]) {
+        return nil;
+    }
     return filePath;
-}
-
-+ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    UIGraphicsBeginImageContextWithOptions(newSize, YES, 0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 + (NSString *)uniqueFilePath {
@@ -248,37 +248,13 @@ static const NSString *kTCCardData = @"data";
             return nil;
         }
     }
-    NSString *md5hash = [TCCard md5hash];
-    if(!md5hash) return nil;
+    NSString *md5hash = [NSData md5hash];
+    if(!md5hash) {
+        return nil;
+    }
     NSString *file = [md5hash stringByAppendingString:@".jpg"];
     filePath = [@"Photos" stringByAppendingPathComponent:file];
     return filePath;
-}
-
-+ (NSString *)md5hash {
-    uint64_t now = [TCCard now];
-    if(now == -1) return nil;
-    NSData *nowData = [NSData dataWithBytes: &now length: sizeof(now)];
-    // Create byte array of unsigned chars
-    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
-    
-    // Create 16 byte MD5 hash value, store in buffer
-    CC_MD5(nowData.bytes, (CC_LONG)nowData.length, md5Buffer);
-    
-    // Convert unsigned char buffer to NSString of hex values
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02x",md5Buffer[i]];
-    
-    return output;
-}
-
-+ (uint64_t)now {
-    mach_timebase_info_data_t info;
-    if (mach_timebase_info(&info) != KERN_SUCCESS) {
-        return -1.0;
-    }
-    return mach_absolute_time();
 }
 
 @end

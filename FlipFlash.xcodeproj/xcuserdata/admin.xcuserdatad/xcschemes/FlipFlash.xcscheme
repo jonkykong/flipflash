@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "99B7AE94192D50D500C1B49C"
                BuildableName = "FlipFlash.app"
-               BlueprintName = "Real Flash Cards"
-               ReferencedContainer = "container:Real Flash Cards.xcodeproj">
+               BlueprintName = "FlipFlash"
+               ReferencedContainer = "container:FlipFlash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "99B7AEB5192D50D500C1B49C"
                BuildableName = "Real Flash CardsTests.xctest"
                BlueprintName = "Real Flash CardsTests"
-               ReferencedContainer = "container:Real Flash Cards.xcodeproj">
+               ReferencedContainer = "container:FlipFlash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "99B7AEB5192D50D500C1B49C"
                BuildableName = "Real Flash CardsTests.xctest"
                BlueprintName = "Real Flash CardsTests"
-               ReferencedContainer = "container:Real Flash Cards.xcodeproj">
+               ReferencedContainer = "container:FlipFlash.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -58,8 +58,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99B7AE94192D50D500C1B49C"
             BuildableName = "FlipFlash.app"
-            BlueprintName = "Real Flash Cards"
-            ReferencedContainer = "container:Real Flash Cards.xcodeproj">
+            BlueprintName = "FlipFlash"
+            ReferencedContainer = "container:FlipFlash.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -68,7 +68,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
@@ -78,8 +78,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99B7AE94192D50D500C1B49C"
             BuildableName = "FlipFlash.app"
-            BlueprintName = "Real Flash Cards"
-            ReferencedContainer = "container:Real Flash Cards.xcodeproj">
+            BlueprintName = "FlipFlash"
+            ReferencedContainer = "container:FlipFlash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -97,8 +97,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99B7AE94192D50D500C1B49C"
             BuildableName = "FlipFlash.app"
-            BlueprintName = "Real Flash Cards"
-            ReferencedContainer = "container:Real Flash Cards.xcodeproj">
+            BlueprintName = "FlipFlash"
+            ReferencedContainer = "container:FlipFlash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,6 +1,6 @@
 //
 //  TCCardSwipeNC.m
-//  Real Flash Cards
+//  FlipFlash
 //
 //  Created by Jon Kent on 3/25/15.
 //  Copyright (c) 2015 Jon Kent. All rights reserved.
@@ -42,13 +42,17 @@
 }
 
 - (void)rotateToDeviceOrientation {
-    if(![self shouldAutorotate]) return;
+    if(![self shouldAutorotate]) {
+        return;
+    }
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     TCCardSwipeVC *nextPage;
     if(UIDeviceOrientationIsLandscape(orientation)) {
-        if(!showPortrait && self.topViewController) return;
+        if(!showPortrait && self.topViewController) {
+            return;
+        }
         showPortrait = NO;
         nextPage = [storyboard instantiateViewControllerWithIdentifier:@"LandscapeSwipe"];
     } else if(UIDeviceOrientationIsPortrait(orientation) || !self.topViewController) {
@@ -56,7 +60,9 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             return;
         }
-        if(showPortrait) return;
+        if(showPortrait) {
+            return;
+        }
         showPortrait = YES;
         nextPage = [storyboard instantiateViewControllerWithIdentifier:@"PortraitSwipe"];
     } else {
@@ -80,16 +86,26 @@
 }
 
 - (BOOL)shouldAutorotate {
-    if(!self.topViewController) return YES;
+    if(!self.topViewController) {
+        return YES;
+    }
     return [self.topViewController shouldAutorotate];
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    if(!self.topViewController || [self shouldAutorotate]) return UIInterfaceOrientationMaskAll;
+    if(!self.topViewController) {
+        UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+        if(UIDeviceOrientationIsLandscape(orientation)) {
+            return UIInterfaceOrientationMaskLandscape;
+        }
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    if([self shouldAutorotate]) {
+        return UIInterfaceOrientationMaskAll;
+    }
     if(showPortrait) {
         return UIInterfaceOrientationMaskPortrait;
     }
     return UIInterfaceOrientationMaskLandscape;
 }
-
 @end

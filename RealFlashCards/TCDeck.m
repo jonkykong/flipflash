@@ -1,6 +1,6 @@
 //
 //  TCCardDeck.m
-//  Real Flash Cards
+//  FlipFlash
 //
 //  Created by Jon Kent on 3/20/15.
 //  Copyright (c) 2015 Jon Kent. All rights reserved.
@@ -36,7 +36,7 @@ static const NSString *kTCCardDataArray = @"data";
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [[[self class] alloc] init];
     if (self) {
@@ -77,7 +77,7 @@ static const NSString *kTCCardDataArray = @"data";
 - (void)setLatestCardIndex:(NSUInteger)index showFront:(BOOL)front {
     NSNumber *number = [NSNumber numberWithInteger:index];
     [data setValue:number forKey:(NSString *)kTCCardDataArrayLatestCardIndex];
-    number = [NSNumber numberWithBool:front];
+    number = @(front);
     [data setValue:number forKey:(NSString *)kTCCardDataArrayLatestCardShowFront];
 }
 
@@ -94,26 +94,28 @@ static const NSString *kTCCardDataArray = @"data";
 }
 
 - (NSString *)title {
-    return [data objectForKey:kTCCardDataArrayTitle];
+    return data[kTCCardDataArrayTitle];
 }
 
 - (NSMutableArray *)cards {
-    return [data objectForKey:kTCCardDataArrayCards];
+    return data[kTCCardDataArrayCards];
 }
 
 - (NSUInteger)latestCardIndex {
-    NSNumber *number = [data objectForKey:kTCCardDataArrayLatestCardIndex];
+    NSNumber *number = data[kTCCardDataArrayLatestCardIndex];
     return number.integerValue;
 }
 
 - (BOOL)latestCardShowFront {
-    NSNumber *number = [data objectForKey:kTCCardDataArrayLatestCardShowFront];
-    if(!number) return YES;
+    NSNumber *number = data[kTCCardDataArrayLatestCardShowFront];
+    if(!number) {
+        return YES;
+    }
     return number.boolValue;
 }
 
 - (NSUInteger)deckCycles {
-    NSNumber *number = [data objectForKey:kTCCardDataArrayDeckCycles];
+    NSNumber *number = data[kTCCardDataArrayDeckCycles];
     return number.integerValue;
 }
 

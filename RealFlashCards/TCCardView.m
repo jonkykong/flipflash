@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Jon Kent. All rights reserved.
 //
 
-
 #define ACTION_MARGIN 120 //setValue:distance from center where the action applies. Higher = swipe further in order for the action to be called
 #define ROTATION_MAX 1 //setValue:the maximum rotation allowed in radians.  Higher = card can keep rotating longer
 #define ROTATION_STRENGTH 320 //setValue:strength of rotation. Higher = weaker rotation
@@ -18,7 +17,6 @@
 @interface TCCardView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic)CGPoint originalPoint;
-//@property (nonatomic,strong)OverlayView* overlayView;
 @property (nonatomic,weak) IBOutlet UILabel *centerLabel;
 @property (nonatomic,weak) IBOutlet UILabel *photoLabel;
 @property (nonatomic,weak) IBOutlet UIImageView *photoView;
@@ -58,37 +56,31 @@
 }
 
 - (IBAction)beingDragged:(UIPanGestureRecognizer *)recognizer {
-    //setValue:this extracts the coordinate data from your swipe movement. (i.e. How much did you move?)
-    xFromCenter = [recognizer translationInView:self].x; //setValue:positive for right swipe, negative for left
-    yFromCenter = [recognizer translationInView:self].y; //setValue:positive for up, negative for down
+    xFromCenter = [recognizer translationInView:self].x;
+    yFromCenter = [recognizer translationInView:self].y;
     
     static BOOL twoFingerTouch;
     
-    //setValue:checks what state the gesture is in. (are you just starting, letting go, or in the middle of a swipe?)
     switch (recognizer.state) {
             //setValue:just started swiping
         case UIGestureRecognizerStateBegan:{
             self.originalPoint = self.center;
-            if(recognizer.numberOfTouches == 1) twoFingerTouch = NO;
+            if(recognizer.numberOfTouches == 1) {
+                twoFingerTouch = NO;
+            }
             break;
         };
-            //setValue:in the middle of a swipe
         case UIGestureRecognizerStateChanged:{
             
             if(recognizer.numberOfTouches == 1 && !twoFingerTouch) {
-                //setValue:dictates rotation (see ROTATION_MAX and ROTATION_STRENGTH for details)
                 CGFloat rotationStrength = MIN(xFromCenter / ROTATION_STRENGTH, ROTATION_MAX);
-                
-                //setValue:degree change in radians
                 CGFloat rotationAngel = (CGFloat) (ROTATION_ANGLE * rotationStrength);
                 
-                //setValue:rotate by certain amount
                 CGAffineTransform transform = CGAffineTransformMakeRotation(rotationAngel);
                 
                 transform.tx = xFromCenter - yFromCenter * rotationAngel;
                 transform.ty = yFromCenter + fabs(xFromCenter * rotationAngel);
                 
-                //setValue:apply transformations
                 self.transform = transform;
                 [self updateView:xFromCenter];
             } else {
@@ -105,18 +97,26 @@
         };
 
         case UIGestureRecognizerStateEnded: {
-            if(!twoFingerTouch) [self afterSwipeAction];
+            if(!twoFingerTouch) {
+                [self afterSwipeAction];
+            }
             twoFingerTouch = NO;
             break;
         };
-        case UIGestureRecognizerStatePossible:break;
-        case UIGestureRecognizerStateCancelled:break;
-        case UIGestureRecognizerStateFailed:break;
+        case UIGestureRecognizerStatePossible:
+            break;
+        case UIGestureRecognizerStateCancelled:
+            break;
+        case UIGestureRecognizerStateFailed:
+            break;
     }
 }
 
 - (IBAction)flipCard:(UITapGestureRecognizer *)recognizer {
-    if(!CGAffineTransformIsIdentity(self.transform)) return;
+    if(!CGAffineTransformIsIdentity(self.transform))
+    {
+        return;
+    }
     [delegate cardFlipped:!showFront];
     
     [UIView transitionWithView:self duration:0.50f
@@ -132,13 +132,17 @@
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer {
     recognizer.view.transform = CGAffineTransformScale(self.transform, recognizer.scale, recognizer.scale);
     recognizer.scale = 1;
-    if(recognizer.state == UIGestureRecognizerStateEnded) [self recenterAndResize];
+    if(recognizer.state == UIGestureRecognizerStateEnded) {
+        [self recenterAndResize];
+    }
 }
 
 - (IBAction)handleRotate:(UIRotationGestureRecognizer *)recognizer {
     recognizer.view.transform = CGAffineTransformRotate(self.transform, recognizer.rotation);
     recognizer.rotation = 0;
-    if(recognizer.state == UIGestureRecognizerStateEnded) [self recenterAndResize];
+    if(recognizer.state == UIGestureRecognizerStateEnded) {
+        [self recenterAndResize];
+    }
 }
 
 - (void)recenterAndResize {
@@ -152,7 +156,6 @@
     return YES;
 }
 
-//setValue:checks to see if you are moving right or left and applies the correct overlay image
 - (void)updateView:(CGFloat)distance {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat progress = MIN(fabsf(distance)/(screenWidth / 2.0), 0.3);
@@ -160,17 +163,14 @@
     if (distance > 0) {
         self.backgroundColor = [UIColor colorWithRed:1 - progress green:1 blue:1 - progress alpha:1];
         self.layer.shadowColor = [UIColor colorWithRed:0 green:progress / 0.3 blue:0 alpha:1].CGColor;
-//        overlayView.mode = GGOverlayViewModeRight;
     } else {
         self.backgroundColor = [UIColor colorWithRed:1 green:1 - progress blue:1 - progress alpha:1];
         self.layer.shadowColor = [UIColor colorWithRed:progress / 0.3 green:0 blue:0 alpha:1].CGColor;
-//        overlayView.mode = GGOverlayViewModeLeft;
     }
     self.layer.shadowOpacity = fmaxf(progress / 0.3, 0.2);
     self.layer.shadowRadius = 3 + 7 * progress / 0.3;
 }
 
-//setValue:called when the card is let go
 - (void)afterSwipeAction {
     if (xFromCenter > ACTION_MARGIN) {
         [self rightAction];
@@ -186,7 +186,6 @@
     }
 }
 
-//setValue:called when a swipe exceeds the ACTION_MARGIN to the right
 - (void)rightAction {
     CGPoint finishPoint = CGPointMake([UIScreen mainScreen].bounds.size.width * 2, 2*yFromCenter + self.originalPoint.y);
     [UIView animateWithDuration:0.3
@@ -200,7 +199,6 @@
     [delegate cardSwipedRight:self];
 }
 
-//setValue:called when a swip exceeds the ACTION_MARGIN to the left
 - (void)leftAction {
     CGPoint finishPoint = CGPointMake(-[UIScreen mainScreen].bounds.size.width, 2*yFromCenter + self.originalPoint.y);
     [UIView animateWithDuration:0.3

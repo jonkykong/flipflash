@@ -13,6 +13,5 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import "TCKit.h"
 #endif
-
-#define NavigationHeight ( self.navigationController.navigationBar.frame.size.height + fminf([[UIApplication sharedApplication] statusBarFrame].size.width, [[UIApplication sharedApplication] statusBarFrame].size.height) )

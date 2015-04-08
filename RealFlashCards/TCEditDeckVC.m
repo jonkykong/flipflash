@@ -1,6 +1,6 @@
 //
 //  TCEditDeckVC.m
-//  Real Flash Cards
+//  FlipFlash
 //
 //  Created by Jon Kent on 3/20/15.
 //  Copyright (c) 2015 Jon Kent. All rights reserved.
@@ -53,7 +53,10 @@
 
 - (void)orientationChanged:(NSNotification *)notification{
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    if(!self.view.window || deck.cards.count == 0) return;
+    if(!self.view.window || deck.cards.count == 0) {
+        return;
+    }
+    
     if(UIDeviceOrientationIsLandscape(orientation)) {
         if(!didViewDeck) {
             didViewDeck = YES;
@@ -114,7 +117,7 @@
     if(deck.cards.count == 0) {
         [self.tableView setTableHeaderView:nil];
         CGRect frame = noCardsView.frame;
-        frame.size.height = [UIScreen mainScreen].bounds.size.height - NavigationHeight;
+        frame.size.height = [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationHeight;
         noCardsView.frame = frame;
         [self.tableView setTableFooterView:noCardsView];
         if(self.view.window) {
@@ -264,13 +267,13 @@
         return;
     }
     
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"No"]) return;
+    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"No"]) {
+        return;
+    }
     
     if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Create!"]) {
         clipboardLinesSeparator = [alertView textFieldAtIndex:0].text;
         [self createCardsFromClipboard:clipboardLinesSeparator];
-//        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-//        pasteboard.string = @"";
         return;
     }
     
@@ -291,19 +294,21 @@
     
     if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"No Thanks"]) {
         clipboardLines = nil;
-//        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-//        pasteboard.string = @"";
         return;
     }
     
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) return;
+    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
+        return;
+    }
     
     if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"OK"]) {
         UITextField *textField = [alertView textFieldAtIndex:0];
         [textField endEditing:YES];
         
         if(textField.text.length == 0) {
-            if(deck.title.length == 0) deck.title = @"New Deck";
+            if(deck.title.length == 0) {
+                deck.title = @"New Deck";
+            }
         } else {
             deck.title = textField.text;
         }
@@ -329,12 +334,16 @@
                 cleanedLine = [cleanedLine stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 
                 if(cleanedLine.length > 0) {
-                    if(!card) card = [[TCCard alloc] init];
+                    if(!card) {
+                        card = [[TCCard alloc] init];
+                    }
                     card.frontText = cleanedLine;
                 }
                 [equalArrayCopy removeObject:breakLine];
             }
-            if(card) [newCards addObject:card];
+            if(card) {
+                [newCards addObject:card];
+            }
         }
     } else {
         for(NSString *line in clipboardLines) {

@@ -1,6 +1,6 @@
 //
 //  TCEditCardVC.m
-//  Real Flash Cards
+//  FlipFlash
 //
 //  Created by Jon Kent on 3/20/15.
 //  Copyright (c) 2015 Jon Kent. All rights reserved.
@@ -68,7 +68,7 @@
     imageButton.imageView.contentMode = UIViewContentModeCenter;
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    tipLabelHeighConstraint.constant = screenSize.height - NavigationHeight - cardView.frame.origin.y - (screenSize.width - 16) * 0.75;
+    tipLabelHeighConstraint.constant = screenSize.height - self.navigationController.navigationHeight - cardView.frame.origin.y - (screenSize.width - 16) * 0.75;
     
     CALayer *layer = [[CALayer alloc] init];
     layer.frame = CGRectMake(0, 0, screenSize.width - 16, (screenSize.width - 16) * 0.75);
@@ -94,17 +94,10 @@
 }
 
 - (void)setTextVerticalAlignment {
-//    if(!cardImageView.image) {
         CGFloat topCorrect = ([cardTextView bounds].size.height - [cardTextView contentSize].height * [cardTextView zoomScale])/2.0;
         topCorrect = fmaxf(0.0, topCorrect);
         cardTextView.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
         cardTextView.textAlignment = NSTextAlignmentCenter;
-//    } else {
-//        CGFloat topCorrect = ([cardTextView bounds].size.height - [cardTextView contentSize].height * [cardTextView zoomScale]);
-//        topCorrect = fmaxf(0.0, topCorrect);
-//        cardTextView.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
-//        cardTextView.textAlignment = NSTextAlignmentCenter;
-//    }
 }
 
 - (void)keyboardWillShowOrHide:(NSNotification*)notification
@@ -113,7 +106,7 @@
     
     NSValue *bv = info[UIKeyboardFrameEndUserInfoKey];
     
-    NSValue* ad = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSValue* ad = info[UIKeyboardAnimationDurationUserInfoKey];
     NSTimeInterval animationDuration = 0;
     [ad getValue:&animationDuration];
     
@@ -169,9 +162,11 @@
     [self saveCard];
     
     NSUInteger index = [deck.cards indexOfObject:card];
-    if(index == deck.cards.count - 1) return;
+    if(index == deck.cards.count - 1) {
+        return;
+    }
     index++;
-    card = [deck.cards objectAtIndex:index];
+    card = (deck.cards)[index];
     [self enablePreviousAndNextButtons];
     [self.view endEditing:YES];
     
@@ -182,9 +177,11 @@
     [self saveCard];
     
     NSUInteger index = [deck.cards indexOfObject:card];
-    if(index == 0) return;
+    if(index == 0) {
+        return;
+    }
     index--;
-    card = [deck.cards objectAtIndex:index];
+    card = (deck.cards)[index];
     [self enablePreviousAndNextButtons];
     [self.view endEditing:YES];
     
@@ -193,7 +190,9 @@
 
 - (void)animateCardSlideLeft:(BOOL)left {
     CGFloat x = self.view.frame.size.width;
-    if(!left) x *= -1;
+    if(!left) {
+        x *= -1;
+    }
     
     [UIView animateWithDuration:0.15 animations:^{
         cardView.transform = CGAffineTransformMakeTranslation(-x, 0);

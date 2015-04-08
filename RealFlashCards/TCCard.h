@@ -8,29 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TCCard : NSObject
+@interface TCCard : NSObject<NSCoding> 
+
+@property (nonatomic, copy) NSString *frontText;
+@property (nonatomic, strong) UIImage *frontImage;
+@property (nonatomic, copy) NSString *backText;
+@property (nonatomic, strong) UIImage *backImage;
+@property (nonatomic, readonly) NSUInteger scoredRight;
+@property (nonatomic, readonly) NSUInteger scoredWrong;
+@property (nonatomic, readonly) NSInteger scoredNet;
+@property (nonatomic, readonly) NSUInteger scoredTotal;
+@property (nonatomic, readonly) NSInteger scoredLatest;
 
 - (void)encodeForSending:(BOOL)sending;
-
-- (void)setFrontText:(NSString *)frontText;
-- (void)setFrontImage:(UIImage *)frontImage;
-- (void)setBackText:(NSString *)backText;
-- (void)setBackImage:(UIImage *)backImage;
 - (void)incrementScoreRight;
 - (void)incrementScoreWrong;
 - (void)resetScores;
 - (void)resetLatestScore;
-
-- (NSString *)frontText;
-- (UIImage *)frontImage;
-- (NSString *)backText;
-- (UIImage *)backImage;
 - (void)frontImageWithCompletion:(void (^)(UIImage* image))completion;
 - (void)backImageWithCompletion:(void (^)(UIImage* image))completion;
-- (NSUInteger)scoredRight;
-- (NSUInteger)scoredWrong;
-- (NSInteger)scoredNet;
-- (NSUInteger)scoredTotal;
-- (NSInteger)scoredLatest;
 
 @end

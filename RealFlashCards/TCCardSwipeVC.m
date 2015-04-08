@@ -93,14 +93,16 @@ static const int MAX_BUFFER_SIZE = 3;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if(!overlayView.hidden) return;
+    if(!overlayView.hidden) {
+        return;
+    }
     
-    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    if(UIInterfaceOrientationIsPortrait(orientation)) {
-        self.view.frame = CGRectMake(0, 0, fminf(screenSize.width, screenSize.height), fmaxf(screenSize.width, screenSize.height));
-    } else {
+    if(UIDeviceOrientationIsLandscape(orientation)) {
         self.view.frame = CGRectMake(0, 0, fmaxf(screenSize.width, screenSize.height), fminf(screenSize.width, screenSize.height));
+    } else {
+        self.view.frame = CGRectMake(0, 0, fminf(screenSize.width, screenSize.height), fmaxf(screenSize.width, screenSize.height));
     }
     [self.view layoutIfNeeded];
     
@@ -112,12 +114,14 @@ static const int MAX_BUFFER_SIZE = 3;
     
     // TODO: understand why this must go in viewDidAppear or else cards get improperly transformed.
     for(TCCardView *card in cardViewArray) {
-        if(card == cardViewArray.firstObject) continue;
+        if(card == cardViewArray.firstObject) {
+            continue;
+        }
         [self kilterCard:card];
     }
     
     // delete file if it exists from previous send
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0];
+    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *filePath = [docPath stringByAppendingPathComponent:@"deck.ffd"];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:filePath error:nil];
@@ -152,10 +156,10 @@ static const int MAX_BUFFER_SIZE = 3;
     }];
 }
 
--(TCCardView *)createCardViewWithDataAtIndex:(NSInteger)index asynchronously:(BOOL)async {
+- (TCCardView *)createCardViewWithDataAtIndex:(NSInteger)index asynchronously:(BOOL)async {
     TCCardView *cardView = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([TCCardView class]) owner:self options:nil].firstObject;
     cardView.frame = cardTemplateView.frame;
-    TCCard *card = [deck.cards objectAtIndex:index];
+    TCCard *card = (deck.cards)[index];
     if(async) {
         __weak TCCardView *weakCardView = cardView;
         [weakCardView setCardDataAsync:card completion:^{
@@ -182,7 +186,7 @@ static const int MAX_BUFFER_SIZE = 3;
             if(i == 0) card.showFront = deck.latestCardShowFront;
             [cardViewArray addObject:card];
             if (cardViewArray.count > 1) {
-                [self.view insertSubview:card belowSubview:[cardViewArray objectAtIndex:i-1]];
+                [self.view insertSubview:card belowSubview:cardViewArray[i-1]];
             } else {
                 [self.view addSubview:card];
             }
@@ -194,9 +198,12 @@ static const int MAX_BUFFER_SIZE = 3;
 
 - (BOOL)shouldShowFrontForCardRevealMode {
     switch (cardRevealMode) {
-        case TCCardRevealFront: return YES;
-        case TCCardRevealBack : return NO;
-        case TCCardRevealRandom: return arc4random() % 2;
+        case TCCardRevealFront:
+            return YES;
+        case TCCardRevealBack :
+            return NO;
+        case TCCardRevealRandom:
+            return arc4random() % 2;
     }
 }
 
@@ -209,7 +216,6 @@ static const int MAX_BUFFER_SIZE = 3;
 }
 
 - (void)kilterCard:(TCCardView *)card {
-//    card.frame = cardTemplateView.frame;
     card.userInteractionEnabled = NO;
     CGFloat kilter = (arc4random() % 101);
     kilter = kilter / 101.0 - 0.5;
@@ -237,7 +243,7 @@ static const int MAX_BUFFER_SIZE = 3;
         return;
     } else {
         if(!preview) {
-            TCCardView *card = [cardViewArray objectAtIndex:0];
+            TCCardView *card = cardViewArray[0];
             [deck setLatestCardIndex:deck.latestCardIndex + 1 showFront:card.showFront];
         }
     }
@@ -248,48 +254,39 @@ static const int MAX_BUFFER_SIZE = 3;
         TCCardView *card = [self createCardViewWithDataAtIndex:watermark asynchronously:YES];
         [cardViewArray addObject:card];
         watermark++;
-        [self.view insertSubview:card belowSubview:[cardViewArray objectAtIndex:(MAX_BUFFER_SIZE-2)]];
+        [self.view insertSubview:card belowSubview:cardViewArray[(MAX_BUFFER_SIZE-2)]];
         [self kilterCard:card];
     }
 }
 
-//%%% when you hit the right button, this is called and substitutes the swipe
+// when you hit the right button, this is called and substitutes the swipe
 - (IBAction)swipeRight:(id)sender {
     TCCardView *dragView = [cardViewArray firstObject];
-//    dragView.overlayView.mode = GGOverlayViewModeRight;
-//    [UIView animateWithDuration:0.2 animations:^{
-//        dragView.overlayView.alpha = 1;
-//    }];
     [dragView rightClickAction];
 }
 
-//%%% when you hit the left button, this is called and substitutes the swipe
+// when you hit the left button, this is called and substitutes the swipe
 - (IBAction)swipeLeft:(id)sender {
     TCCardView *dragView = [cardViewArray firstObject];
-//    dragView.overlayView.mode = GGOverlayViewModeLeft;
-//    [UIView animateWithDuration:0.2 animations:^{
-//        dragView.overlayView.alpha = 1;
-//    }];
     [dragView leftClickAction];
 }
-
-//- (NSUInteger)supportedInterfaceOrientations
-//{
-//    return UIInterfaceOrientationMaskLandscape;
-//}
 
 #pragma mark - TCCardViewDelegate
 
 - (void)cardSwipedLeft:(UIView *)card {
     TCCard *cardData = deck.cards[deck.latestCardIndex];
-    if(!preview) [cardData incrementScoreWrong];
+    if(!preview) {
+        [cardData incrementScoreWrong];
+    }
     
     [self removeTopCardAndReplenishDeck];
 }
 
 - (void)cardSwipedRight:(UIView *)card {
     TCCard *cardData = deck.cards[deck.latestCardIndex];
-    if(!preview) [cardData incrementScoreRight];
+    if(!preview) {
+        [cardData incrementScoreRight];
+    }
     
     [self removeTopCardAndReplenishDeck];
 }
@@ -410,13 +407,15 @@ static const int MAX_BUFFER_SIZE = 3;
 }
 
 - (IBAction)share:(id)sender {
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *filePath = [docPath stringByAppendingPathComponent:@"deck.ffd"];
     
     TCDeck *deckCopy = [deck copy];
     
     [deckCopy encodeForSending:YES];
-    if(![NSKeyedArchiver archiveRootObject:deckCopy toFile:filePath]) return;
+    if(![NSKeyedArchiver archiveRootObject:deckCopy toFile:filePath]) {
+        return;
+    }
     
     unsigned long long size = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil].fileSize;
     NSString *stringSize = size > 1024 * 1024 ? [NSString stringWithFormat:@"%.1f MB", size / (1024.0 * 1024.0)] : [NSString stringWithFormat:@"%.1f KB", size / 1024.0];

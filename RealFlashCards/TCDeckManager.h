@@ -1,6 +1,6 @@
 //
 //  TCDeckManager.h
-//  Real Flash Cards
+//  FlipFlash
 //
 //  Created by Jon Kent on 3/26/15.
 //  Copyright (c) 2015 Jon Kent. All rights reserved.
@@ -12,8 +12,9 @@
 
 @interface TCDeckManager : NSObject
 
+@property (nonatomic, readonly, copy) NSArray *decks;
+
 + (TCDeckManager *)sharedManager;
-- (NSArray *)decks;
 - (void)addDeck:(TCDeck *)deck;
 - (void)removeDeck:(TCDeck *)deck;
 - (void)saveDecks;

@@ -1,6 +1,6 @@
 //
 //  TCSelectDeckVC.m
-//  Real Flash Cards
+//  FlipFlash
 //
 //  Created by Jon Kent on 3/23/15.
 //  Copyright (c) 2015 Jon Kent. All rights reserved.
@@ -48,7 +48,10 @@ static const NSString *kTCDecks = @"decks";
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if(![self.tableView indexPathForSelectedRow]) return YES;
+    if(![self.tableView indexPathForSelectedRow]) {
+        return YES;
+    }
+    
     TCDeck *deck = [TCDeckManager sharedManager].decks[[self.tableView indexPathForSelectedRow].row];
     if(deck.cards.count == 0) {
         [self performSegueWithIdentifier:@"NewDeck" sender:deck];
@@ -58,7 +61,10 @@ static const NSString *kTCDecks = @"decks";
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if(![segue.destinationViewController isKindOfClass:[UINavigationController class]]) return;
+    if(![segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+        return;
+    }
+    
     UINavigationController *navigationController = (id)segue.destinationViewController;
     
     if([navigationController isKindOfClass:[TCCardSwipeNC class]]) {
@@ -76,7 +82,7 @@ static const NSString *kTCDecks = @"decks";
 - (void)updateFooterView {
     if([TCDeckManager sharedManager].decks.count == 0) {
         CGRect frame = noDecksView.frame;
-        frame.size.height = [UIScreen mainScreen].bounds.size.height - NavigationHeight;
+        frame.size.height = [UIScreen mainScreen].bounds.size.height - self.navigationController.navigationHeight;
         noDecksView.frame = frame;
         [self.tableView setTableFooterView:noDecksView];
         if(self.view.window) {
@@ -138,7 +144,9 @@ static const NSString *kTCDecks = @"decks";
     
     TCDeck *deck = [[TCDeck alloc] init];
     if(textField.text.length == 0) {
-        if(deck.title.length == 0) deck.title = @"New Deck";
+        if(deck.title.length == 0) {
+            deck.title = @"New Deck";
+        }
     } else {
         deck.title = textField.text;
     }
@@ -182,7 +190,11 @@ static const NSString *kTCDecks = @"decks";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeckCell" forIndexPath:indexPath];
     TCDeck *deck = [TCDeckManager sharedManager].decks[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%lu cards)", deck.title, (unsigned long)deck.cards.count];
+    if(deck.cards.count == 1) {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ (1 card)", deck.title];
+    } else {
+        cell.textLabel.text = [NSString stringWithFormat:@"%@ (%lu cards)", deck.title, (unsigned long)deck.cards.count];
+    }
     
     return cell;
 }

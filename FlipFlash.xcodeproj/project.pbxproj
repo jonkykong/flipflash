@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8403A6891AD4B68000DE6DED /* TCKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8403A6881AD4B68000DE6DED /* TCKit.m */; };
 		84375FD01AC6C0DA008662F2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84375FCE1AC6C0DA008662F2 /* Crashlytics.framework */; };
 		84375FD11AC6C0DA008662F2 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84375FCF1AC6C0DA008662F2 /* Fabric.framework */; };
 		84375FE01AC79577008662F2 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84375FDF1AC79577008662F2 /* Launch Screen.xib */; };
@@ -34,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8403A6871AD4B68000DE6DED /* TCKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCKit.h; sourceTree = "<group>"; };
+		8403A6881AD4B68000DE6DED /* TCKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCKit.m; sourceTree = "<group>"; };
 		84375FCE1AC6C0DA008662F2 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		84375FCF1AC6C0DA008662F2 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		84375FDF1AC79577008662F2 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
@@ -60,7 +63,7 @@
 		99B7AE98192D50D500C1B49C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99B7AE9A192D50D500C1B49C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		99B7AE9C192D50D500C1B49C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		99B7AEA0192D50D500C1B49C /* Real Flash Cards-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Real Flash Cards-Info.plist"; sourceTree = "<group>"; };
+		99B7AEA0192D50D500C1B49C /* FlipFlash-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlipFlash-Info.plist"; sourceTree = "<group>"; };
 		99B7AEA2192D50D500C1B49C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99B7AEA4192D50D500C1B49C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		99B7AEA6192D50D500C1B49C /* prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = prefix.pch; sourceTree = "<group>"; };
@@ -70,7 +73,7 @@
 		99B7AEAD192D50D500C1B49C /* TCCardSwipeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TCCardSwipeVC.h; sourceTree = "<group>"; };
 		99B7AEAE192D50D500C1B49C /* TCCardSwipeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TCCardSwipeVC.m; sourceTree = "<group>"; };
 		99B7AEB0192D50D500C1B49C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		99B7AEBF192D50D500C1B49C /* Real Flash CardsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Real Flash CardsTests-Info.plist"; sourceTree = "<group>"; };
+		99B7AEBF192D50D500C1B49C /* FlipFlashTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FlipFlashTests-Info.plist"; sourceTree = "<group>"; };
 		99B7AEC1192D50D500C1B49C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99B7AEC3192D50D500C1B49C /* testing_swipingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = testing_swipingTests.m; sourceTree = "<group>"; };
 		99B7AECD192D513800C1B49C /* TCCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCardView.h; sourceTree = "<group>"; };
@@ -148,8 +151,8 @@
 		99B7AE8C192D50D500C1B49C = {
 			isa = PBXGroup;
 			children = (
-				99B7AE9E192D50D500C1B49C /* RealFlashCards */,
-				99B7AEBD192D50D500C1B49C /* RealFlashCardsTests */,
+				99B7AE9E192D50D500C1B49C /* FlipFlash */,
+				99B7AEBD192D50D500C1B49C /* FlipFlashTests */,
 				99B7AE97192D50D500C1B49C /* Frameworks */,
 				99B7AE96192D50D500C1B49C /* Products */,
 			);
@@ -173,7 +176,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		99B7AE9E192D50D500C1B49C /* RealFlashCards */ = {
+		99B7AE9E192D50D500C1B49C /* FlipFlash */ = {
 			isa = PBXGroup;
 			children = (
 				99B7AEA7192D50D500C1B49C /* TCAppDelegate.h */,
@@ -186,6 +189,7 @@
 				84375FD41AC75702008662F2 /* Assets */,
 				99B7AE9F192D50D500C1B49C /* Supporting */,
 			);
+			name = FlipFlash;
 			path = RealFlashCards;
 			sourceTree = "<group>";
 		};
@@ -194,27 +198,30 @@
 			children = (
 				84375FCE1AC6C0DA008662F2 /* Crashlytics.framework */,
 				84375FCF1AC6C0DA008662F2 /* Fabric.framework */,
-				99B7AEA0192D50D500C1B49C /* Real Flash Cards-Info.plist */,
+				99B7AEA0192D50D500C1B49C /* FlipFlash-Info.plist */,
 				99B7AEA1192D50D500C1B49C /* InfoPlist.strings */,
 				99B7AEA4192D50D500C1B49C /* main.m */,
 				99B7AEA6192D50D500C1B49C /* prefix.pch */,
+				8403A6871AD4B68000DE6DED /* TCKit.h */,
+				8403A6881AD4B68000DE6DED /* TCKit.m */,
 			);
 			name = Supporting;
 			sourceTree = "<group>";
 		};
-		99B7AEBD192D50D500C1B49C /* RealFlashCardsTests */ = {
+		99B7AEBD192D50D500C1B49C /* FlipFlashTests */ = {
 			isa = PBXGroup;
 			children = (
 				99B7AEC3192D50D500C1B49C /* testing_swipingTests.m */,
 				99B7AEBE192D50D500C1B49C /* Supporting Files */,
 			);
+			name = FlipFlashTests;
 			path = RealFlashCardsTests;
 			sourceTree = "<group>";
 		};
 		99B7AEBE192D50D500C1B49C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				99B7AEBF192D50D500C1B49C /* Real Flash CardsTests-Info.plist */,
+				99B7AEBF192D50D500C1B49C /* FlipFlashTests-Info.plist */,
 				99B7AEC0192D50D500C1B49C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -223,9 +230,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		99B7AE94192D50D500C1B49C /* Real Flash Cards */ = {
+		99B7AE94192D50D500C1B49C /* FlipFlash */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 99B7AEC7192D50D500C1B49C /* Build configuration list for PBXNativeTarget "Real Flash Cards" */;
+			buildConfigurationList = 99B7AEC7192D50D500C1B49C /* Build configuration list for PBXNativeTarget "FlipFlash" */;
 			buildPhases = (
 				99B7AE91192D50D500C1B49C /* Sources */,
 				99B7AE92192D50D500C1B49C /* Frameworks */,
@@ -236,7 +243,7 @@
 			);
 			dependencies = (
 			);
-			name = "Real Flash Cards";
+			name = FlipFlash;
 			productName = RealFlashCards;
 			productReference = 99B7AE95192D50D500C1B49C /* FlipFlash.app */;
 			productType = "com.apple.product-type.application";
@@ -247,6 +254,7 @@
 		99B7AE8D192D50D500C1B49C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = TC;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Jon Kent";
 				TargetAttributes = {
@@ -255,7 +263,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 99B7AE90192D50D500C1B49C /* Build configuration list for PBXProject "Real Flash Cards" */;
+			buildConfigurationList = 99B7AE90192D50D500C1B49C /* Build configuration list for PBXProject "FlipFlash" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -268,7 +276,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				99B7AE94192D50D500C1B49C /* Real Flash Cards */,
+				99B7AE94192D50D500C1B49C /* FlipFlash */,
 			);
 		};
 /* End PBXProject section */
@@ -316,6 +324,7 @@
 				99B7AEA9192D50D500C1B49C /* TCAppDelegate.m in Sources */,
 				84AA5C4A1AC529E700F6AAE0 /* TCDeckManager.m in Sources */,
 				84F9E8B51AC37DC1003D52E9 /* TCCardSwipeNC.m in Sources */,
+				8403A6891AD4B68000DE6DED /* TCKit.m in Sources */,
 				99B7AECF192D513800C1B49C /* TCCardView.m in Sources */,
 				8475D1381ABD0D7C001390F2 /* TCEditCardVC.m in Sources */,
 				8475D12A1ABBBDE0001390F2 /* TCCard.m in Sources */,
@@ -438,7 +447,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RealFlashCards/prefix.pch;
-				INFOPLIST_FILE = "RealFlashCards/Real Flash Cards-Info.plist";
+				INFOPLIST_FILE = "RealFlashCards/FlipFlash-Info.plist";
 				PRODUCT_NAME = FlipFlash;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -457,7 +466,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RealFlashCards/prefix.pch;
-				INFOPLIST_FILE = "RealFlashCards/Real Flash Cards-Info.plist";
+				INFOPLIST_FILE = "RealFlashCards/FlipFlash-Info.plist";
 				PRODUCT_NAME = FlipFlash;
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -467,7 +476,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		99B7AE90192D50D500C1B49C /* Build configuration list for PBXProject "Real Flash Cards" */ = {
+		99B7AE90192D50D500C1B49C /* Build configuration list for PBXProject "FlipFlash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				99B7AEC5192D50D500C1B49C /* Debug */,
@@ -476,7 +485,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		99B7AEC7192D50D500C1B49C /* Build configuration list for PBXNativeTarget "Real Flash Cards" */ = {
+		99B7AEC7192D50D500C1B49C /* Build configuration list for PBXNativeTarget "FlipFlash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				99B7AEC8192D50D500C1B49C /* Debug */,

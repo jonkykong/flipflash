@@ -1,6 +1,6 @@
 //
 //  TCCardSwipeNC.h
-//  Real Flash Cards
+//  FlipFlash
 //
 //  Created by Jon Kent on 3/25/15.
 //  Copyright (c) 2015 Jon Kent. All rights reserved.
