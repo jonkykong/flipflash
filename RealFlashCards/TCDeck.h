@@ -16,7 +16,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSMutableArray *cards;
 
-- (void)encodeForSending:(BOOL)isSending;
+- (BOOL)saveToFile:(NSString *)filePath;
 - (void)clearLatestScores;
 - (void)setLatestCardIndex:(NSUInteger)index showFront:(BOOL)front;
 - (void)incrementDeckCycles;

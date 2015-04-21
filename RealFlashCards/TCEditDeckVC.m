@@ -39,6 +39,7 @@
     if(isNewDeck) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderAndFooterView) name:UIApplicationDidBecomeActiveNotification object:nil];
         [self checkClipboard];
     }
     

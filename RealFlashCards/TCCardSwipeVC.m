@@ -127,12 +127,6 @@ static const int MAX_BUFFER_SIZE = 3;
     [fileManager removeItemAtPath:filePath error:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-}
-
 - (BOOL)shouldAutorotate {
     return self.overlayView.hidden;
 }
@@ -303,8 +297,6 @@ static const int MAX_BUFFER_SIZE = 3;
 }
 
 - (IBAction)more:(id)sender {
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-    
     UIImage *snapshot = [self takeSnapshotOfView:self.view];
     overlayImageView.image = [self blurWithCoreImage:snapshot];
     
@@ -390,7 +382,6 @@ static const int MAX_BUFFER_SIZE = 3;
         [self close:sender];
         return;
     }
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     [UIView animateWithDuration:0.35 animations:^{
         overlayView.alpha = 0;
     } completion:^(BOOL finished) {
@@ -412,8 +403,7 @@ static const int MAX_BUFFER_SIZE = 3;
     
     TCDeck *deckCopy = [deck copy];
     
-    [deckCopy encodeForSending:YES];
-    if(![NSKeyedArchiver archiveRootObject:deckCopy toFile:filePath]) {
+    if(![deckCopy saveToFile:filePath]) {
         return;
     }
     

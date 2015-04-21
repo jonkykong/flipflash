@@ -62,8 +62,11 @@ static const NSString *kTCCardDataArray = @"data";
     }
 }
 
-- (void)encodeForSending:(BOOL)isSending {
-    self.sending = isSending;
+- (BOOL)saveToFile:(NSString *)filePath {
+    sending = YES;
+    BOOL success = [NSKeyedArchiver archiveRootObject:self toFile:filePath];
+    sending = NO;
+    return success;
 }
 
 - (void)setTitle:(NSString *)title {

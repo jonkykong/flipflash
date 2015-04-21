@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="F0d-mV-Vrp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="F0d-mV-Vrp">
     <dependencies>
         <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -415,17 +415,17 @@ to edit cards faster</string>
                     <navigationItem key="navigationItem" id="K5B-Y2-3Jk">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="Mw0-Q1-WvM">
-                            <rect key="frame" x="51" y="0.0" width="218.5" height="44"/>
+                            <rect key="frame" x="51" y="0.0" width="219" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qw-xu-ZiO">
-                                    <rect key="frame" x="94" y="13" width="29" height="21"/>
+                                    <rect key="frame" x="95" y="13" width="29" height="21"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HZ-CM-md9">
-                                    <rect key="frame" x="118" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="119" y="0.0" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="3To-Cw-Cts"/>
                                         <constraint firstAttribute="width" constant="44" id="yV8-C9-LEX"/>
@@ -442,7 +442,7 @@ to edit cards faster</string>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fn-UJ-sjc">
-                                    <rect key="frame" x="56" y="0.0" width="44" height="44"/>
+                                    <rect key="frame" x="57" y="0.0" width="44" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="YFP-9u-Afv"/>
                                         <constraint firstAttribute="width" constant="44" id="Zwa-0b-SmO"/>
@@ -1127,9 +1127,9 @@ to edit cards faster</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nCy-fi-5uX"/>
-        <segue reference="Xqz-h1-PVP"/>
         <segue reference="hLD-Kw-Iqh"/>
+        <segue reference="owb-nT-USp"/>
+        <segue reference="nCy-fi-5uX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.80000000000000004" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

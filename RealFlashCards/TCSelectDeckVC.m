@@ -29,6 +29,7 @@ static const NSString *kTCDecks = @"decks";
     self.clearsSelectionOnViewWillAppear = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:TCNewDeckFromFileNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFooterView) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)dealloc {
