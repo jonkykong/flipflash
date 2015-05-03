@@ -213,7 +213,7 @@ static const NSString *kTCDecks = @"decks";
     if(editingStyle == UITableViewCellEditingStyleDelete) {
         pathToDelete = indexPath;
         TCDeck *deck = [TCDeckManager sharedManager].decks[indexPath.row];
-        [[[UIAlertView alloc] initWithTitle:deck.title message:@"Are you sure you want to delete this deck?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil] show];
+        [[[UIAlertView alloc] initWithTitle:deck.title message:@"Are you sure you want to delete this deck?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
     }
 }
 

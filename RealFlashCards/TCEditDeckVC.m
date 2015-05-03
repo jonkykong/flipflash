@@ -251,7 +251,7 @@
 }
 
 - (IBAction)reset:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Reset Stats" message:@"Are you sure you want to reset your stats for this deck?" delegate:self cancelButtonTitle:@"Yes" otherButtonTitles:@"No", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Reset Stats" message:@"Are you sure you want to reset your stats for this deck?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
     [alertView show];
 }
 
