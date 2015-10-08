@@ -11,7 +11,7 @@
 #import "TCCard.h"
 #import "TCCardSwipeNC.h"
 
-@interface TCEditDeckVC () <UITextFieldDelegate, UIAlertViewDelegate>
+@interface TCEditDeckVC () <UITextFieldDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 @property (nonatomic, weak) IBOutlet UIButton *deckTitleButton;
 @property (nonatomic, strong) IBOutlet UIView *noCardsView;
 @property (nonatomic, strong) IBOutlet UIView *statsView;
@@ -19,6 +19,8 @@
 @property (nonatomic, assign) BOOL didViewDeck;
 @property (nonatomic, strong) NSMutableArray *clipboardLines;
 @property (nonatomic, strong) NSString *clipboardLinesSeparator;
+@property (nonatomic,strong) id <UIViewControllerTransitioningDelegate> transitioningDelegateForAlertController;
+@property (assign, nonatomic) NSTimeInterval keyboardAnimationDuration;
 @end
 
 @implementation TCEditDeckVC
@@ -40,6 +42,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationDidBecomeActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateHeaderAndFooterView) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification object:nil];
         [self checkClipboard];
     }
     
@@ -73,7 +76,36 @@
     if(string.length > 0) {
         clipboardLines = [[string componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]] mutableCopy];
         if(clipboardLines.count > 1) {
-            [[[UIAlertView alloc] initWithTitle:@"Auto-Create Cards" message:@"Cards can be created automatically from clipboard text. Each new line of text will go on a new card." delegate:self cancelButtonTitle:nil otherButtonTitles:@"Create!", @"Create on Both Sides...", @"No Thanks", nil] show];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Auto-Create Cards" message:@"Cards can be created automatically from clipboard text. Each new line of text will go on a new card." preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Create!" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                clipboardLinesSeparator = nil;
+                [self createCardsFromClipboard:clipboardLinesSeparator];
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Create on Both Sides..." style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                UIAlertController *secondAlertController = [UIAlertController alertControllerWithTitle:@"Create on Both Sides" message:@"Enter the text that separates the front of a card from the back:" preferredStyle:UIAlertControllerStyleAlert];
+                [secondAlertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+                [secondAlertController addAction:[UIAlertAction actionWithTitle:@"Create!" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    UITextField *textField = secondAlertController.textFields.firstObject;
+                    clipboardLinesSeparator = textField.text;
+                    [self createCardsFromClipboard:clipboardLinesSeparator];
+                }]];
+                [secondAlertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                    textField.placeholder = @"enter separator";
+                    textField.adjustsFontSizeToFitWidth = NO;
+                    textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+                    textField.autocorrectionType = UITextAutocorrectionTypeNo;
+                    textField.text = clipboardLinesSeparator.length > 0 ? clipboardLinesSeparator : @"=";
+                    textField.clearButtonMode = UITextFieldViewModeAlways;
+                    textField.delegate = self;
+                }];
+                self.transitioningDelegateForAlertController = alertController.transitioningDelegate;
+                alertController.transitioningDelegate = self;
+                [self presentViewController:secondAlertController animated:YES completion:nil];
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"No Thanks" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                clipboardLines = nil;
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
     }
 }
@@ -228,82 +260,11 @@
     return NO;
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [textField setSelectedTextRange:[textField textRangeFromPosition:textField.beginningOfDocument toPosition:textField.endOfDocument]];
-}
-
 - (IBAction)editTitle:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Change deck title:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    UITextField *textField = [alertView textFieldAtIndex:0];
-    textField.placeholder = @"enter title";
-    textField.adjustsFontSizeToFitWidth = NO;
-    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    textField.autocorrectionType = UITextAutocorrectionTypeYes;
-    if(deck.title.length == 0) {
-        textField.text = @"My Deck";
-    } else {
-        textField.text = deck.title;
-    }
-    textField.clearButtonMode = UITextFieldViewModeAlways;
-    textField.delegate = self;
-    [alertView show];
-}
-
-- (IBAction)reset:(id)sender {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Reset Stats" message:@"Are you sure you want to reset your stats for this deck?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
-    [alertView show];
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Yes"]) {
-        [deck resetDeckCycles];
-        for(TCCard *card in deck.cards) {
-            [card resetScores];
-        }
-        [self updateHeaderAndFooterView];
-        [self.tableView reloadData];
-        return;
-    }
-    
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"No"]) {
-        return;
-    }
-    
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Create!"]) {
-        clipboardLinesSeparator = [alertView textFieldAtIndex:0].text;
-        [self createCardsFromClipboard:clipboardLinesSeparator];
-        return;
-    }
-    
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Create on Both Sides..."]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Create on Both Sides" message:@"Enter the text that separates the front of a card from the back:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Create!", nil];
-        alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-        UITextField *textField = [alertView textFieldAtIndex:0];
-        textField.placeholder = @"enter separator";
-        textField.adjustsFontSizeToFitWidth = NO;
-        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        textField.autocorrectionType = UITextAutocorrectionTypeNo;
-        textField.text = clipboardLinesSeparator.length > 0 ? clipboardLinesSeparator : @"=";
-        textField.clearButtonMode = UITextFieldViewModeAlways;
-        textField.delegate = self;
-        [alertView show];
-        return;
-    }
-    
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"No Thanks"]) {
-        clipboardLines = nil;
-        return;
-    }
-    
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]) {
-        return;
-    }
-    
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"OK"]) {
-        UITextField *textField = [alertView textFieldAtIndex:0];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"Change deck title:" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *textField = alertController.textFields.firstObject;
         [textField endEditing:YES];
         
         if(textField.text.length == 0) {
@@ -314,7 +275,38 @@
             deck.title = textField.text;
         }
         [deckTitleButton setTitle:deck.title forState:UIControlStateNormal];
-    }
+    }]];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"enter title";
+        textField.adjustsFontSizeToFitWidth = NO;
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+        textField.autocorrectionType = UITextAutocorrectionTypeYes;
+        if(deck.title.length == 0) {
+            textField.text = @"My Deck";
+        } else {
+            textField.text = deck.title;
+        }
+        textField.clearButtonMode = UITextFieldViewModeAlways;
+        textField.delegate = self;
+    }];
+    self.transitioningDelegateForAlertController = alertController.transitioningDelegate;
+    alertController.transitioningDelegate = self;
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (IBAction)reset:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Reset Stats" message:@"Are you sure you want to reset your stats for this deck?" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [deck resetDeckCycles];
+        for(TCCard *card in deck.cards) {
+            [card resetScores];
+        }
+        [self updateHeaderAndFooterView];
+        [self.tableView reloadData];
+    }]];
+    [self presentViewController:alertController animated:YES completion:nil];
+
 }
 
 - (void)createCardsFromClipboard:(NSString *)separator {
@@ -369,6 +361,55 @@
     if(deck.cards.count > 0 && isNewDeck) {
         [self.navigationController setToolbarHidden:NO animated:NO];
     }
+}
+
+#pragma mark - Keyboard notifications
+
+- (void)keyboardWillAppear:(NSNotification *)notification {
+    self.keyboardAnimationDuration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                   presentingController:(UIViewController *)presenting
+                                                                       sourceController:(UIViewController *)source {
+    return [self.transitioningDelegateForAlertController animationControllerForPresentedController:presented
+                                                                              presentingController:presenting
+                                                                                  sourceController:source];
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return self;
+}
+
+#pragma mark - UIViewControllerAnimatedTransitioning
+
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
+    return self.keyboardAnimationDuration;
+}
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    UIViewController *destination = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    if (![destination isBeingPresented]) {
+        [self animateDismissal:transitionContext];
+    }
+}
+
+- (void)animateDismissal:(id <UIViewControllerContextTransitioning>)transitionContext {
+    NSTimeInterval transitionDuration = [self transitionDuration:transitionContext];
+    UIViewController *fromController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    [toController beginAppearanceTransition:YES animated:YES];
+    [fromController.view endEditing:YES];
+    [UIView animateWithDuration:transitionDuration
+                     animations:^{
+                         fromController.view.superview.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished) {
+                         [toController endAppearanceTransition];
+                         [transitionContext completeTransition:YES];
+                     }];
 }
 
 @end

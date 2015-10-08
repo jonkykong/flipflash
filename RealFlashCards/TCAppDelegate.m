@@ -22,10 +22,6 @@ NSString *const TCNewDeckFromFileNotification = @"TCNewDeckFromFileNotification"
         [Fabric with:@[CrashlyticsKit]];
     #endif
     
-    // http://stackoverflow.com/questions/26487170/xcode-6-x-ios-8-hides-status-bar-in-landscape-orientation
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    
     [self updateAppAccent];
     
     // Override point for customization after application launch.
@@ -88,7 +84,7 @@ NSString *const TCNewDeckFromFileNotification = @"TCNewDeckFromFileNotification"
                             [UIColor colorWithRed:.8 green:0 blue:.8 alpha:1]]; // pink
     
     NSCalendar* calender = [NSCalendar currentCalendar];
-    NSDateComponents* component = [calender components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+    NSDateComponents* component = [calender components:NSCalendarUnitWeekday fromDate:[NSDate date]];
     UIColor *globalColor = colorArray[[component weekday] - 1]; // 1 = Sunday, 2 = Monday...
     
     [[UIView appearance] setTintColor:globalColor];

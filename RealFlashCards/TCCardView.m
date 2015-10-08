@@ -130,19 +130,29 @@
 }
 
 - (IBAction)handlePinch:(UIPinchGestureRecognizer *)recognizer {
-    recognizer.view.transform = CGAffineTransformScale(self.transform, recognizer.scale, recognizer.scale);
-    recognizer.scale = 1;
     if(recognizer.state == UIGestureRecognizerStateEnded) {
         [self recenterAndResize];
+        return;
     }
+    CGFloat scale = sqrtf(recognizer.view.transform.a * recognizer.view.transform.a +
+                          recognizer.view.transform.c * recognizer.view.transform.c);
+    if ((recognizer.scale > 1.0) && (scale >= 4.00)) {
+        return;
+    }
+    if ((recognizer.scale < 1.0) && (scale <= 1.00)) {
+        return;
+    }
+    recognizer.view.transform = CGAffineTransformScale(self.transform, recognizer.scale, recognizer.scale);
+    recognizer.scale = 1;
 }
 
 - (IBAction)handleRotate:(UIRotationGestureRecognizer *)recognizer {
-    recognizer.view.transform = CGAffineTransformRotate(self.transform, recognizer.rotation);
-    recognizer.rotation = 0;
     if(recognizer.state == UIGestureRecognizerStateEnded) {
         [self recenterAndResize];
+        return;
     }
+    recognizer.view.transform = CGAffineTransformRotate(self.transform, recognizer.rotation);
+    recognizer.rotation = 0;
 }
 
 - (void)recenterAndResize {
@@ -158,7 +168,7 @@
 
 - (void)updateView:(CGFloat)distance {
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat progress = MIN(fabsf(distance)/(screenWidth / 2.0), 0.3);
+    CGFloat progress = MIN(fabs(distance)/(screenWidth / 2.0), 0.3);
     
     if (distance > 0) {
         self.backgroundColor = [UIColor colorWithRed:1 - progress green:1 blue:1 - progress alpha:1];
@@ -295,6 +305,7 @@
             photoView.contentMode = UIViewContentModeScaleAspectFit;
         }
         photoView.image = image;
+        photoLabel.font = [UIFont fontWithName:photoLabel.font.fontName size:26.0 * self.frame.size.width / 304.0];
         photoLabel.text = showFront ? cardData.frontText : cardData.backText;
         CGSize size = [photoLabel sizeThatFits:CGSizeMake(self.bounds.size.width, CGFLOAT_MAX)];
         CGFloat maxHeight = fminf(size.height, self.bounds.size.height / 4.0);
@@ -309,6 +320,7 @@
     }
     else
     {
+        centerLabel.font = [UIFont fontWithName:centerLabel.font.fontName size:34.0 * self.frame.size.width / 304.0];
         centerLabel.text = showFront ? cardData.frontText : cardData.backText;
         photoView.hidden = YES;
         photoLabel.hidden = YES;

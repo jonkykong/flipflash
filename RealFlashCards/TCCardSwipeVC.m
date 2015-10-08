@@ -131,6 +131,10 @@ static const int MAX_BUFFER_SIZE = 3;
     return self.overlayView.hidden;
 }
 
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UINavigationController *navigationController = (id)segue.destinationViewController;
     TCEditDeckVC *editDeckVC = (id)navigationController.topViewController;

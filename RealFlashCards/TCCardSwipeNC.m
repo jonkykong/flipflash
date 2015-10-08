@@ -31,8 +31,11 @@
     [super viewWillAppear:animated];
     
     [self rotateToDeviceOrientation];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotateToDeviceOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -92,7 +95,7 @@
     return [self.topViewController shouldAutorotate];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if(!self.topViewController) {
         UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
         if(UIDeviceOrientationIsLandscape(orientation)) {

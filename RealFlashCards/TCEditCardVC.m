@@ -8,7 +8,7 @@
 
 #import "TCEditCardVC.h"
 
-@interface TCEditCardVC () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIAlertViewDelegate>
+@interface TCEditCardVC () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton *nextCardButton;
 @property (nonatomic, weak) IBOutlet UIButton *previousCardButton;
@@ -143,7 +143,7 @@
     [super viewWillDisappear:animated];
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
 }
 
@@ -222,18 +222,13 @@
 - (IBAction)addImage:(UIButton *)sender {
     BOOL cameraAvailable = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     if (!cameraAvailable) {
-        UIAlertView *authorizationAlertView;
-        
-        if(&UIApplicationOpenSettingsURLString != NULL)
-        {
-            authorizationAlertView = [[UIAlertView alloc] initWithTitle:@"Camera Access" message:@"Please enable Camera Access in Settings." delegate:self cancelButtonTitle:@"Close" otherButtonTitles:@"Settings", nil];
-        }
-        else
-        {
-            authorizationAlertView = [[UIAlertView alloc] initWithTitle:@"Camera Access" message:@"Please enable Camera Access in Settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        }
-        
-        [authorizationAlertView show];
+        UIAlertController *authorizationAlertController = [UIAlertController alertControllerWithTitle:@"Camera Access" message:@"Please enable Camera Access in Settings." preferredStyle:UIAlertControllerStyleAlert];
+        [authorizationAlertController addAction:[UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleCancel handler:nil]];
+        [authorizationAlertController addAction:[UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            [[UIApplication sharedApplication] openURL:appSettings];
+        }]];
+        [self presentViewController:authorizationAlertController animated:YES completion:nil];
         return;
     }
         
@@ -337,17 +332,6 @@
     imageButton.selected = NO;
     [self setTextVerticalAlignment];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"Settings"])
-    {
-        NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-        [[UIApplication sharedApplication] openURL:appSettings];
-    }
 }
 
 @end

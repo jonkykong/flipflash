@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8403A6891AD4B68000DE6DED /* TCKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8403A6881AD4B68000DE6DED /* TCKit.m */; };
-		84375FD01AC6C0DA008662F2 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84375FCE1AC6C0DA008662F2 /* Crashlytics.framework */; };
-		84375FD11AC6C0DA008662F2 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84375FCF1AC6C0DA008662F2 /* Fabric.framework */; };
 		84375FE01AC79577008662F2 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84375FDF1AC79577008662F2 /* Launch Screen.xib */; };
 		84375FE51AC920F6008662F2 /* icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84375FE31AC920F6008662F2 /* icon-29.png */; };
 		84375FE61AC920F6008662F2 /* icon-58.png in Resources */ = {isa = PBXBuildFile; fileRef = 84375FE41AC920F6008662F2 /* icon-58.png */; };
@@ -20,6 +18,8 @@
 		8475D1381ABD0D7C001390F2 /* TCEditCardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475D1371ABD0D7C001390F2 /* TCEditCardVC.m */; };
 		8475D13E1AC0D0FD001390F2 /* TCSelectDeckVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475D13D1AC0D0FD001390F2 /* TCSelectDeckVC.m */; };
 		8475D1411AC10F50001390F2 /* TCPortraitNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475D1401AC10F50001390F2 /* TCPortraitNC.m */; };
+		84948DCF1BC64A94007AC238 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84948DCD1BC64A94007AC238 /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
+		84948DD01BC64A94007AC238 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84948DCE1BC64A94007AC238 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		84AA5C4A1AC529E700F6AAE0 /* TCDeckManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AA5C491AC529E700F6AAE0 /* TCDeckManager.m */; };
 		84F9E8B51AC37DC1003D52E9 /* TCCardSwipeNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E8B41AC37DC1003D52E9 /* TCCardSwipeNC.m */; };
 		99B7AE99192D50D500C1B49C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B7AE98192D50D500C1B49C /* Foundation.framework */; };
@@ -37,8 +37,6 @@
 /* Begin PBXFileReference section */
 		8403A6871AD4B68000DE6DED /* TCKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCKit.h; sourceTree = "<group>"; };
 		8403A6881AD4B68000DE6DED /* TCKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCKit.m; sourceTree = "<group>"; };
-		84375FCE1AC6C0DA008662F2 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		84375FCF1AC6C0DA008662F2 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		84375FDF1AC79577008662F2 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		84375FE31AC920F6008662F2 /* icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-29.png"; sourceTree = "<group>"; };
 		84375FE41AC920F6008662F2 /* icon-58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-58.png"; sourceTree = "<group>"; };
@@ -55,6 +53,8 @@
 		8475D13D1AC0D0FD001390F2 /* TCSelectDeckVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCSelectDeckVC.m; sourceTree = "<group>"; };
 		8475D13F1AC10F50001390F2 /* TCPortraitNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCPortraitNC.h; sourceTree = "<group>"; };
 		8475D1401AC10F50001390F2 /* TCPortraitNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPortraitNC.m; sourceTree = "<group>"; };
+		84948DCD1BC64A94007AC238 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		84948DCE1BC64A94007AC238 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		84AA5C481AC529E700F6AAE0 /* TCDeckManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDeckManager.h; sourceTree = "<group>"; };
 		84AA5C491AC529E700F6AAE0 /* TCDeckManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDeckManager.m; sourceTree = "<group>"; };
 		84F9E8B31AC37DC1003D52E9 /* TCCardSwipeNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCardSwipeNC.h; sourceTree = "<group>"; };
@@ -86,10 +86,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				99B7AE9B192D50D500C1B49C /* CoreGraphics.framework in Frameworks */,
-				84375FD11AC6C0DA008662F2 /* Fabric.framework in Frameworks */,
+				84948DD01BC64A94007AC238 /* Crashlytics.framework in Frameworks */,
 				99B7AE9D192D50D500C1B49C /* UIKit.framework in Frameworks */,
-				84375FD01AC6C0DA008662F2 /* Crashlytics.framework in Frameworks */,
 				99B7AE99192D50D500C1B49C /* Foundation.framework in Frameworks */,
+				84948DCF1BC64A94007AC238 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,8 +196,8 @@
 		99B7AE9F192D50D500C1B49C /* Supporting */ = {
 			isa = PBXGroup;
 			children = (
-				84375FCE1AC6C0DA008662F2 /* Crashlytics.framework */,
-				84375FCF1AC6C0DA008662F2 /* Fabric.framework */,
+				84948DCD1BC64A94007AC238 /* Fabric.framework */,
+				84948DCE1BC64A94007AC238 /* Crashlytics.framework */,
 				99B7AEA0192D50D500C1B49C /* FlipFlash-Info.plist */,
 				99B7AEA1192D50D500C1B49C /* InfoPlist.strings */,
 				99B7AEA4192D50D500C1B49C /* main.m */,
@@ -255,7 +255,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = TC;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Jon Kent";
 				TargetAttributes = {
 					99B7AE94192D50D500C1B49C = {
@@ -383,6 +383,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -397,8 +399,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -421,6 +424,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -429,7 +433,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -439,7 +444,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -448,8 +452,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RealFlashCards/prefix.pch;
 				INFOPLIST_FILE = "RealFlashCards/FlipFlash-Info.plist";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonked.flipflash;
 				PRODUCT_NAME = FlipFlash;
-				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -458,7 +463,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -467,8 +471,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = RealFlashCards/prefix.pch;
 				INFOPLIST_FILE = "RealFlashCards/FlipFlash-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jonked.flipflash;
 				PRODUCT_NAME = FlipFlash;
-				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
