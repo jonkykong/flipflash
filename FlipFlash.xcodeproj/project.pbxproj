@@ -20,6 +20,7 @@
 		8475D1411AC10F50001390F2 /* TCPortraitNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8475D1401AC10F50001390F2 /* TCPortraitNC.m */; };
 		84948DCF1BC64A94007AC238 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84948DCD1BC64A94007AC238 /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		84948DD01BC64A94007AC238 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84948DCE1BC64A94007AC238 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
+		84948DD31BC6FC70007AC238 /* TCResizableTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84948DD21BC6FC70007AC238 /* TCResizableTextView.m */; settings = {ASSET_TAGS = (); }; };
 		84AA5C4A1AC529E700F6AAE0 /* TCDeckManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AA5C491AC529E700F6AAE0 /* TCDeckManager.m */; };
 		84F9E8B51AC37DC1003D52E9 /* TCCardSwipeNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9E8B41AC37DC1003D52E9 /* TCCardSwipeNC.m */; };
 		99B7AE99192D50D500C1B49C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B7AE98192D50D500C1B49C /* Foundation.framework */; };
@@ -55,6 +56,8 @@
 		8475D1401AC10F50001390F2 /* TCPortraitNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCPortraitNC.m; sourceTree = "<group>"; };
 		84948DCD1BC64A94007AC238 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		84948DCE1BC64A94007AC238 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		84948DD11BC6FC70007AC238 /* TCResizableTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCResizableTextView.h; sourceTree = "<group>"; };
+		84948DD21BC6FC70007AC238 /* TCResizableTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCResizableTextView.m; sourceTree = "<group>"; };
 		84AA5C481AC529E700F6AAE0 /* TCDeckManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCDeckManager.h; sourceTree = "<group>"; };
 		84AA5C491AC529E700F6AAE0 /* TCDeckManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TCDeckManager.m; sourceTree = "<group>"; };
 		84F9E8B31AC37DC1003D52E9 /* TCCardSwipeNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TCCardSwipeNC.h; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				8475D1261ABB916F001390F2 /* TCCardView.xib */,
 				99B7AECD192D513800C1B49C /* TCCardView.h */,
 				99B7AECE192D513800C1B49C /* TCCardView.m */,
+				84948DD11BC6FC70007AC238 /* TCResizableTextView.h */,
+				84948DD21BC6FC70007AC238 /* TCResizableTextView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84948DD31BC6FC70007AC238 /* TCResizableTextView.m in Sources */,
 				99B7AEAF192D50D500C1B49C /* TCCardSwipeVC.m in Sources */,
 				8475D1411AC10F50001390F2 /* TCPortraitNC.m in Sources */,
 				99B7AEA9192D50D500C1B49C /* TCAppDelegate.m in Sources */,

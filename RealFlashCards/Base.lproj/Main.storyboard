@@ -59,7 +59,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap ╋ to Create a Card" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfS-7b-wiT">
-                                    <rect key="frame" x="8" y="8" width="304" height="286"/>
+                                    <rect key="frame" x="8" y="8" width="304" height="285.5"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -376,20 +376,18 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="228"/>
                                                 <animations/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <gestureRecognizers/>
                                             </imageView>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kDd-G9-mSZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="304" height="228"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kDd-G9-mSZ" customClass="TCResizableTextView">
+                                                <rect key="frame" x="0.0" y="85" width="304" height="57"/>
                                                 <animations/>
                                                 <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" priority="750" constant="57" id="hoC-lZ-YLb"/>
+                                                </constraints>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes"/>
-                                                <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="iY3-9V-qXz" appends="YES" id="sNi-fr-2NF"/>
-                                                    <outletCollection property="gestureRecognizers" destination="p7E-bj-sQc" appends="YES" id="Cqf-9l-aJU"/>
-                                                    <outletCollection property="gestureRecognizers" destination="HQS-Mk-P76" appends="YES" id="o6A-jz-EIO"/>
-                                                    <outletCollection property="gestureRecognizers" destination="hvc-z3-tGj" appends="YES" id="aCa-5q-bg4"/>
-                                                </connections>
                                             </textView>
                                         </subviews>
                                         <animations/>
@@ -398,14 +396,20 @@
                                         <constraints>
                                             <constraint firstItem="kDd-G9-mSZ" firstAttribute="leading" secondItem="dOI-Ht-wWQ" secondAttribute="leading" id="0A8-lF-bNR"/>
                                             <constraint firstAttribute="width" secondItem="dOI-Ht-wWQ" secondAttribute="height" multiplier="4:3" id="LP8-B1-bk3"/>
-                                            <constraint firstAttribute="bottom" secondItem="kDd-G9-mSZ" secondAttribute="bottom" id="Pbj-8g-AjT"/>
-                                            <constraint firstItem="kDd-G9-mSZ" firstAttribute="top" secondItem="dOI-Ht-wWQ" secondAttribute="top" id="d3S-2v-2I4"/>
+                                            <constraint firstItem="kDd-G9-mSZ" firstAttribute="centerY" secondItem="dOI-Ht-wWQ" secondAttribute="centerY" id="XLs-bT-lYE"/>
                                             <constraint firstAttribute="trailing" secondItem="kDd-G9-mSZ" secondAttribute="trailing" id="eQw-gr-3df"/>
                                             <constraint firstAttribute="trailing" secondItem="pi2-II-ITs" secondAttribute="trailing" id="hBa-nZ-oqu"/>
                                             <constraint firstItem="pi2-II-ITs" firstAttribute="top" secondItem="dOI-Ht-wWQ" secondAttribute="top" id="jQf-dh-Txt"/>
+                                            <constraint firstItem="kDd-G9-mSZ" firstAttribute="height" relation="lessThanOrEqual" secondItem="dOI-Ht-wWQ" secondAttribute="height" id="lHD-PE-h9t"/>
                                             <constraint firstAttribute="bottom" secondItem="pi2-II-ITs" secondAttribute="bottom" id="qyi-0c-owh"/>
                                             <constraint firstItem="pi2-II-ITs" firstAttribute="leading" secondItem="dOI-Ht-wWQ" secondAttribute="leading" id="uVW-LU-v0p"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="HQS-Mk-P76" appends="YES" id="395-lN-YKd"/>
+                                            <outletCollection property="gestureRecognizers" destination="iY3-9V-qXz" appends="YES" id="786-JH-lfu"/>
+                                            <outletCollection property="gestureRecognizers" destination="hvc-z3-tGj" appends="YES" id="GmV-of-MFV"/>
+                                            <outletCollection property="gestureRecognizers" destination="p7E-bj-sQc" appends="YES" id="19e-9i-xAv"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <animations/>
@@ -450,7 +454,7 @@ to edit cards faster</string>
                     <navigationItem key="navigationItem" id="K5B-Y2-3Jk">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="Mw0-Q1-WvM">
-                            <rect key="frame" x="51" y="0.0" width="219" height="44"/>
+                            <rect key="frame" x="50.5" y="0.0" width="219" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qw-xu-ZiO">
@@ -528,16 +532,16 @@ to edit cards faster</string>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNs-9K-6Od" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="p7E-bj-sQc">
+                    <connections>
+                        <action selector="flipCard:" destination="eZb-nZ-3e3" id="bZB-aR-Xkx"/>
+                        <outlet property="delegate" destination="eZb-nZ-3e3" id="TUD-TB-Mto"/>
+                    </connections>
+                </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="hvc-z3-tGj">
                     <connections>
                         <action selector="previousCard:" destination="eZb-nZ-3e3" id="1Ta-a0-ayi"/>
                         <outlet property="delegate" destination="eZb-nZ-3e3" id="r6S-rA-JtZ"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="iY3-9V-qXz">
-                    <connections>
-                        <action selector="nextCard:" destination="eZb-nZ-3e3" id="acD-U6-GB2"/>
-                        <outlet property="delegate" destination="eZb-nZ-3e3" id="lvq-yE-czY"/>
                     </connections>
                 </swipeGestureRecognizer>
                 <swipeGestureRecognizer direction="up" id="HQS-Mk-P76">
@@ -546,10 +550,10 @@ to edit cards faster</string>
                         <outlet property="delegate" destination="eZb-nZ-3e3" id="ybU-QC-EmP"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="down" id="p7E-bj-sQc">
+                <swipeGestureRecognizer direction="left" id="iY3-9V-qXz">
                     <connections>
-                        <action selector="flipCard:" destination="eZb-nZ-3e3" id="bZB-aR-Xkx"/>
-                        <outlet property="delegate" destination="eZb-nZ-3e3" id="TUD-TB-Mto"/>
+                        <action selector="nextCard:" destination="eZb-nZ-3e3" id="acD-U6-GB2"/>
+                        <outlet property="delegate" destination="eZb-nZ-3e3" id="lvq-yE-czY"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
@@ -621,7 +625,7 @@ to edit cards faster</string>
                                         <rect key="frame" x="0.0" y="39" width="568" height="195"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Options" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpl-mk-5PZ">
-                                                <rect key="frame" x="229" y="0.0" width="110" height="41"/>
+                                                <rect key="frame" x="229" y="0.0" width="109.5" height="41"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="34"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -796,7 +800,7 @@ to edit cards faster</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FL1-1b-ZzB">
-                                <rect key="frame" x="478" y="136" width="90" height="60"/>
+                                <rect key="frame" x="478" y="136" width="89.5" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZe-gi-vXy">
                                         <rect key="frame" x="15" y="0.0" width="60" height="60"/>
@@ -1028,7 +1032,7 @@ to edit cards faster</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Options" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fWe-FA-1R3">
-                                                <rect key="frame" x="106" y="0.0" width="109" height="41"/>
+                                                <rect key="frame" x="105.5" y="0.0" width="109.5" height="41"/>
                                                 <animations/>
                                                 <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="34"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1108,7 +1112,7 @@ to edit cards faster</string>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deck Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlW-qq-0av">
-                                <rect key="frame" x="52" y="32" width="216" height="21"/>
+                                <rect key="frame" x="52" y="32" width="216" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

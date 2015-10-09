@@ -46,7 +46,6 @@
     cardView.layer.borderWidth = 0.5;
     cardView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
-    [cardTextView addObserver:self forKeyPath:@"contentSize" options:(NSKeyValueObservingOptionNew) context:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowOrHide:) name:UIKeyboardWillHideNotification object:nil];
     
@@ -81,23 +80,11 @@
     }
     
     [self enablePreviousAndNextButtons];
-    [self displayCard:YES];
+    [self displayCardFront:YES];
 }
 
 - (void)dealloc {
-    [cardTextView removeObserver:self forKeyPath:@"contentSize"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    [self setTextVerticalAlignment];
-}
-
-- (void)setTextVerticalAlignment {
-        CGFloat topCorrect = ([cardTextView bounds].size.height - [cardTextView contentSize].height * [cardTextView zoomScale])/2.0;
-        topCorrect = fmaxf(0.0, topCorrect);
-        cardTextView.contentOffset = (CGPoint){.x = 0, .y = -topCorrect};
-        cardTextView.textAlignment = NSTextAlignmentCenter;
 }
 
 - (void)keyboardWillShowOrHide:(NSNotification*)notification
@@ -199,7 +186,7 @@
     } completion:^(BOOL finished) {
         cardView.transform = CGAffineTransformMakeTranslation(x, 0);
         
-        [self displayCard:YES];
+        [self displayCardFront:YES];
         
         [UIView animateWithDuration:0.15 animations:^{
             cardView.transform = CGAffineTransformIdentity;
@@ -215,7 +202,7 @@
     UIViewAnimationOptionTransitionFlipFromBottom :
     UIViewAnimationOptionTransitionFlipFromTop
                     animations:^{
-                        [self displayCard:!showFront];
+                        [self displayCardFront:!showFront];
                     } completion:nil];
 }
 
@@ -275,7 +262,7 @@
     }
 }
 
-- (void)displayCard:(BOOL)front {
+- (void)displayCardFront:(BOOL)front {
     showFront = front;
     
     if(front) {
@@ -305,8 +292,6 @@
         cardImageView.image = nil;
         cardTextView.textColor = [UIColor darkGrayColor];
     }
-    
-    [self setTextVerticalAlignment];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
@@ -320,7 +305,7 @@
         card.backImage = cardImageView.image;
     }
     cardImageView.image = nil;
-    [self displayCard:showFront];
+    [self displayCardFront:showFront];
     cardImageView.alpha = 0;
     [UIView animateWithDuration:0.35 animations:^{
         cardImageView.alpha = 1;
@@ -330,7 +315,6 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     imageButton.selected = NO;
-    [self setTextVerticalAlignment];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
