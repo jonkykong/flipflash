@@ -1,6 +1,12 @@
 # FlipFlash
 FlipFlash is a simple gesture-driven flash card app built in a week: https://itunes.apple.com/app/id980909860
 
+![](etc/screen1.jpeg)
+![](etc/screen2.jpeg)
+![](etc/screen3.jpeg)
+![](etc/screen4.jpeg)
+![](etc/screen5.jpeg)
+
 Create your own deck and swipe left or right to track which cards you know and don’t know. Tap to flip, or pinch and rotate to look closer. Shuffle the cards, sort them by difficulty, or decide which side of the card you see first as you go through them. There’s no need for buttons, labels, or confusing checkboxes to record your learning progress. Be the hero and help your friends learn by sending your decks to them in an instant.
 
 Features:
@@ -13,5 +19,3 @@ Features:
 - Create cards automatically from your clipboard. Simply copy your notes (or a even a webpage), and FlipFlash will detect it when you create a new deck.
 - Send cards to friends so they can learn from your decks.
 - App changes color based on the day you open it to keep things fresh.
-
-_Note: this project was started using https://github.com/cwRichardKim/TinderSimpleSwipeCards, which was then customized/rewritten._
