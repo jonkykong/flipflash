@@ -1,5 +1,9 @@
 # FlipFlash
-FlipFlash is a simple gesture-driven flash card app built in a week: https://itunes.apple.com/app/id980909860
+[![License](https://img.shields.io/cocoapods/l/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
+[![Platform](https://img.shields.io/cocoapods/p/SideMenu.svg?style=flat)](http://cocoapods.org/pods/SideMenu)
+
+# FlipFlash
+FlipFlash is a simple gesture-driven flash card app written in Objective-C in a week: https://itunes.apple.com/app/id980909860
 
 ![](etc/screen1.jpeg)
 ![](etc/screen2.jpeg)
@@ -19,3 +23,7 @@ Features:
 - Create cards automatically from your clipboard. Simply copy your notes (or a even a webpage), and FlipFlash will detect it when you create a new deck.
 - Send cards to friends so they can learn from your decks.
 - App changes color based on the day you open it to keep things fresh.
+
+## License
+
+SideMenu is available under the MIT license. See the LICENSE file for more info.
